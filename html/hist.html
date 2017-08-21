@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="vendor/jquery.min.js"></script>
+<script>
+$(document).ready(function () {
+
+	function pullStatus(tagID, jobname) {
+		$.ajax({
+			method: "GET",
+			url:"show/" + jobname,
+			contentType: "application/json; charset=utf-8",
+			dataType: "json" /* expecting data type */
+		}).done(function (res) {
+			var job = res['job'] || {};
+			var timerSwitch = res['cronRunning'];
+			var last_retcode = job['last_retcode'];
+			var timestamp0 = job['invoke_time'] || 0;
+			var timestamp1 = job['finish_time'] || 0;
+
+			var invoke_time = new Date(timestamp0);
+			var elapsed = (timestamp1 - timestamp0) / 1000;
+			var status_ = '[unknown]';
+			if (last_retcode == 0) {
+				status_ = '&#9745;';
+			} else if (last_retcode > 0) {
+				status_ = '&#9746;';
+			}
+
+			if (timerSwitch != undefined) {
+				status_ += '&#8986;';
+				var anchor = function (ref) {
+					return '<a target="_blank" href="' + ref + '">';
+				};
+				var switchAref = function (switchname) {
+					return anchor('timerswitch/' + jobname + '/' +
+					              switchname) + switchname + '</a>';
+				};
+				status_ += switchAref('on');
+				status_ += '/'
+				status_ += switchAref('off');
+			}
+
+			$('#' + tagID).html(status_ +
+			', takes ' + elapsed + ' sec. ' +
+			'Last invoked on: ' + invoke_time);
+		});
+	}
+
+	function pullHist() {
+		$.ajax({
+			method: "GET",
+			url:"history",
+			contentType: "application/json; charset=utf-8",
+			dataType: "json" /* expecting data type */
+		}).done(function (res) {
+			var hist = res['history'] || [];
+			$("#list").empty();
+			for (var i = 0; i < hist.length; i++) {
+				// console.log(hist[i]);
+				$("#list").prepend('<li>' +
+				'<a target="_blank" href="/show/' + hist[i] + '">' +
+				hist[i] + '</a>' + ' ' +
+				'<span id="l' + i + '"></span>' +
+				'</li>');
+
+				pullStatus('l' + i, hist[i]);
+			}
+		});
+	}
+
+	$("#reload").click(function() { pullHist(); });
+	pullHist();
+});
+</script>
+</head>
+<body>
+
+<h3>Spawn history</h3>
+<button id="reload">reload</button>
+<ul id="list">
+</ul>
+
+</body>
+</html>
