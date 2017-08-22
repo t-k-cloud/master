@@ -18,6 +18,12 @@ $(document).ready(function () {
 			$("#retjson").text(JSON.stringify(msg, null, 2));
 			var token = msg.token || '';
 			$("#token").val(token);
+
+			if (msg.loginPass === true) {
+				setTimeout(function () {
+					window.location.replace('.' + getNextURL());
+				}, 1000);
+			}
 		});
 	});
 
@@ -29,10 +35,6 @@ $(document).ready(function () {
 		else
 			return decodeURIComponent(m[1]);
 	}
-
-	$("#auth").click(function() {
-		window.location.replace('.' + getNextURL());
-	});
 });
 </script>
 </head>
@@ -41,11 +43,6 @@ $(document).ready(function () {
 <input  id="username" placeholder="user name"/>
 <input  id="password" placeholder="password"/>
 <button id="login">login</button>
-
-<h3>Auth</h3>
-<input  id="token" style="width: 100%; background-color: #e4e4e4"
-placeholder="token" readonly/>
-<button id="auth">proceed and redirect</button>
 
 <h3>Return JSON</h3>
 <span id="retjson" style="color:gray"></span></p>
