@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="vendor/jquery.min.js"></script>
+<script type="text/javascript" src="/vendor/jquery/jquery.min.js"></script>
 <script>
 $(document).ready(function () {
 
@@ -60,7 +60,7 @@ $(document).ready(function () {
 			for (var i = 0; i < hist.length; i++) {
 				// console.log(hist[i]);
 				$("#list").prepend('<li>' +
-				'<a target="_blank" href="/show/' + hist[i] + '">' +
+				'<a target="_blank" href="show/' + hist[i] + '">' +
 				hist[i] + '</a>' + ' ' +
 				'<span id="l' + i + '"></span>' +
 				'</li>');

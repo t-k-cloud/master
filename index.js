@@ -86,18 +86,37 @@ app.get('/', function (req, res) {
 }).get('/jobd/reload', expAuth.middleware, function (req, res) {
 	jobs = jobdhdlr.handle_reload(res, jobsldr, jobsdir, jobs);
 
+}).get('/jobd/query', expAuth.middleware, function (req, res) {
+	res.sendFile(path.resolve('./html/query.html'));
+
+}).post('/jobd/stdin', expAuth.middleware, function (req, res) {
+	jobdhdlr.handle_stdin(req, res);
+
+}).get('/jobd/hist', function (req, res) {
+	res.sendFile(path.resolve('./html/hist.html'));
+
+}).get('/jobd/history', function (req, res) {
+	jobdhdlr.handle_hist(res);
+
+}).get('/jobd/log/:jobname', function (req, res) {
+	jobdhdlr.handle_log(jobsdir, req.params.jobname, res);
+
+}).get('/jobd/show/:jobname', function (req, res) {
+	jobdhdlr.handle_show(jobs, req.params.jobname, res);
+
+}).get('/jobd/timerswitch/:jobname/:switch', expAuth.middleware,
+	function (req, res) {
+		let j = req.params.jobname || '';
+		let s = req.params['switch'] || 'off';
+		jobdhdlr.handle_timerswitch(j, s, jobs, res);
+
+}).post('/jobd/run', expAuth.middleware, function (req, res) {
+	jobdhdlr.handle_query(req, res, user, jobsdir, jobs);
+
 }).get('/login', function (req, res) {
 	res.sendFile(path.resolve('./html/login.html'));
 
 }).post('/login_auth', function (req, res) {
 	expAuth.handleLoginReq(req, res);
-
-}).get('/private_place', expAuth.middleware, function (req, res) {
-	res.write('hello');
-	res.end();
-
-}).get('/public_place', function (req, res) {
-	res.write('world');
-	res.end();
 
 });
