@@ -10,9 +10,6 @@ pacman --noconfirm -S nodejs yarn npm
 pacman --noconfirm -S lsof rsync
 pacman --noconfirm -S openssh # for ssh and scp
 
-# create jobs directory under home
-ln -sf `pwd`/jobs $JOBS_DIR
-
 # create master tree
 git clone $MASTER_TREE_REPO $TREE_DIR/$MASTER_TREE_ROOT
 
@@ -23,5 +20,11 @@ echo "moving to $DEST_DIR"
 mkdir $DEST_DIR
 mv $DIR $DEST_DIR
 
+# create jobs directory under home
+DIR_BASENAME=`basename $DIR`
+cd $DEST_DIR/$DIR_BASENAME
+ln -sf `pwd`/jobs $JOBS_DIR
+
 # clone dependences of tkcloud master parts
-git clone $JOBD_REPO $DEST_DIR/
+cd $DEST_DIR
+git clone $JOBD_REPO 
