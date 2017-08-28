@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e # abort on any error
 source config.sh
 
 # must be root permission
