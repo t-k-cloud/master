@@ -21,3 +21,6 @@ DEST_DIR=$TREE_DIR/$MASTER_TREE_ROOT/$THIS_PROJ_SAVE_PATH
 echo "moving to $DEST_DIR"
 mkdir $DEST_DIR
 mv $DIR $DEST_DIR
+
+# clone dependences of tkcloud master parts
+git clone $JOBD_REPO $DEST_DIR/
