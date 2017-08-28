@@ -75,25 +75,25 @@ expAuth.init(app, {
  * routing
  */
 app.get('/', function (req, res) {
-	res.sendFile(path.resolve('./html/index.html'));
+	res.sendFile(path.resolve('./web/index.html'));
 
 }).get('/jobd/deps', function (req, res) {
 	jobdhdlr.handle_deps(req, res, jobs.depGraph);
 
 }).get('/jobd/graph', function (req, res) {
-	res.sendFile(path.resolve('./html/graph.html'));
+	res.sendFile(path.resolve('./web/graph.html'));
 
 }).get('/jobd/reload', expAuth.middleware, function (req, res) {
 	jobs = jobdhdlr.handle_reload(res, jobsldr, jobsdir, jobs);
 
 }).get('/jobd/query', expAuth.middleware, function (req, res) {
-	res.sendFile(path.resolve('./html/query.html'));
+	res.sendFile(path.resolve('./web/query.html'));
 
 }).post('/jobd/stdin', expAuth.middleware, function (req, res) {
 	jobdhdlr.handle_stdin(req, res);
 
 }).get('/jobd/hist', function (req, res) {
-	res.sendFile(path.resolve('./html/hist.html'));
+	res.sendFile(path.resolve('./web/hist.html'));
 
 }).get('/jobd/history', function (req, res) {
 	jobdhdlr.handle_hist(res);
@@ -114,7 +114,7 @@ app.get('/', function (req, res) {
 	jobdhdlr.handle_query(req, res, user, jobsdir, jobs);
 
 }).get('/login', function (req, res) {
-	res.sendFile(path.resolve('./html/login.html'));
+	res.sendFile(path.resolve('./web/login.html'));
 
 }).post('/login_auth', function (req, res) {
 	expAuth.handleLoginReq(req, res);
