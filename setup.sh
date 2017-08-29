@@ -25,6 +25,22 @@ DIR_BASENAME=`basename $DIR`
 cd $DEST_DIR/$DIR_BASENAME
 ln -sf `pwd`/jobs $JOBS_DIR
 
-# clone dependences of tkcloud master parts
-cd $DEST_DIR
-git clone $JOBD_REPO 
+# clone/install dependences of tkcloud master parts
+pushd $DEST_DIR
+
+git clone $JOBD_REPO jobd
+pushd jobd
+./setup.sh
+popd
+
+git clone $AUTH_REPO auth
+pushd auth
+./setup.sh
+popd
+
+popd
+yarn install
+
+# tell user to run master index.js
+echo "please issue the following command to start master daemon:"
+echo "sudo node ./index.js `whoami`"
