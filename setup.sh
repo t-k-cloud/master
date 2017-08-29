@@ -43,4 +43,4 @@ yarn install
 
 # tell user to run master index.js
 echo "please issue the following command to start master daemon:"
-echo "sudo node ./index.js `whoami`"
+echo "sudo node ./index.js \`whoami\`"

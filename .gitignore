@@ -2,3 +2,4 @@ login.log
 *.swp
 node_modules/
 *.lock
+jobs/logs

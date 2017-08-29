@@ -54,7 +54,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var app = express();
 
-app.use(express.static('.'));
+app.use(express.static('./web'));
 app.use(bodyParser.json());
 
 const port = 3002;
