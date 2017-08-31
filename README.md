@@ -4,4 +4,4 @@ About
 tkcloud master node.
 
 Usually on a brand-new OS, git clone this repo and run
-`pacman -Syu`, then run `./setup.sh \`whoami\`` using root privilege.
+`pacman -Syu`, then run ``./setup.sh `whoami` `` using root privilege.
