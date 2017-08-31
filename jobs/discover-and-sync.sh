@@ -18,14 +18,11 @@ fi;
 echo "discovering $MAC1 or $MAC2 from interface $NET_INT_FACE"
 ping -6 -c 3 'ff02::1%'$NET_INT_FACE
 
-
 while true; do
 	if ip -6 neigh | grep $MAC1; then
-		echo "MAC1 found in cache"
 		CLIENT_IPV6=`ip -6 neigh | grep $MAC1 | awk '{print $1}'`
 		MAC1="impossible"
 	elif ip -6 neigh | grep $MAC2; then
-		echo "MAC2 found in cache"
 		CLIENT_IPV6=`ip -6 neigh | grep $MAC2 | awk '{print $1}'`
 		MAC2="impossible"
 	else
@@ -33,12 +30,9 @@ while true; do
 		exit 0;
 	fi
 
-	echo "Is you there??? ${CLIENT_IPV6}%${NET_INT_FACE}"
 	if ping -6 -c 3 ${CLIENT_IPV6}%${NET_INT_FACE}; then
-		echo OOOOOOOOOOO
-		exit 0;
+		break;
 	else
-		echo XXXXXXXXXXX
 		exit 0;
 	fi;
 done
