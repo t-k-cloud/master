@@ -44,15 +44,17 @@ echo "client found: $CLIENT_IPV6 (port $PORT), starting rsync ..."
 ###
 # actually run rsync
 ###
-echo "SYNC: save to --> $MASTER_TREE_PATH/sync"
+set -x
 # to show transmission rate, add `--progress' argument.
 rsync -zauv --checksum --contimeout=6 --timeout=3 --delete \
-	"rsync://[$CLIENT_IPV6]":$PORT/sync $MASTER_TREE_PATH/sync
+	"rsync://[${CLIENT_IPV6}%${NET_INT_FACE}]":$PORT/sync \
+	$MASTER_TREE_PATH/sync
 
-echo "INCR: save to --> $MASTER_TREE_PATH/incr"
 # to show transmission rate, add `--progress' argument.
 rsync -zauv --checksum --contimeout=6 --timeout=3 \
-	"rsync://[$CLIENT_IPV6]":$PORT/incr $MASTER_TREE_PATH/incr
+	"rsync://[${CLIENT_IPV6}%${NET_INT_FACE}]":$PORT/incr \
+	$MASTER_TREE_PATH/incr
+set +x
 
 # remove .lock file when finish
 rm -f $LOCKFILE
