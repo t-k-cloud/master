@@ -56,8 +56,6 @@ pushd auth
 sudo -u $USER bash << EOF
 ./setup.sh
 EOF
-EOF
-./setup.sh
 popd
 
 # master itself
