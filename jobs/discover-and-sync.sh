@@ -46,12 +46,13 @@ echo "client found: $CLIENT_IPV6 (port $PORT), starting rsync ..."
 ###
 set -x
 # to show transmission rate, add `--progress' argument.
-rsync -zauv --checksum --contimeout=6 --timeout=3 --delete \
+rsync -zauv --checksum --contimeout=6 --timeout=3 --exclude='.git/' \
+	--delete \
 	"rsync://[${CLIENT_IPV6}%${NET_INT_FACE}]":$PORT/sync \
 	$MASTER_TREE_PATH/sync
 
 # to show transmission rate, add `--progress' argument.
-rsync -zauv --checksum --contimeout=6 --timeout=3 \
+rsync -zauv --checksum --contimeout=6 --timeout=3 --exclude='.git/' \
 	"rsync://[${CLIENT_IPV6}%${NET_INT_FACE}]":$PORT/incr \
 	$MASTER_TREE_PATH/incr
 set +x
