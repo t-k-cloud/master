@@ -57,7 +57,7 @@ sudo -u $USER bash << EOF
 ./setup.sh
 
 set -x
-ln -s {`pwd`, $DEST_DIR/$DIR_BASENAME}/usrperm.cfg
+ln -sf {`pwd`,$DEST_DIR/$DIR_BASENAME}/usrperm.cfg
 set +x
 EOF
 popd
