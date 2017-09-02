@@ -7,7 +7,7 @@ MAC2=$CLIENT_MAC2
 CLIENT_IPV6=''
 PORT=$CLIENT_RSYNC_PORT
 NET_INT_FACE=$MASTER_NETWORK_INTERFACE
-LOCKFILE=discover-and-sync.lock
+LOCKFILE=$RSYNC_LOCKFILE
 
 # check .lock file
 if [ -e $LOCKFILE ]; then
@@ -39,7 +39,7 @@ done
 
 # before start, create .lock file
 echo "client found: $CLIENT_IPV6 (port $PORT), starting rsync ..."
-> $LOCKFILE
+date > $LOCKFILE
 
 ###
 # actually run rsync
