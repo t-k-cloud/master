@@ -64,7 +64,9 @@ popd
 
 # master itself
 popd
+sudo -u $USER bash << EOF
 yarn install
+EOF
 
 # tell user to run master index.js
 echo "please issue the following command to start master daemon:"
