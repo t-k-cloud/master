@@ -48,13 +48,17 @@ sudo -u $USER bash << EOF
 EOF
 popd
 
-# auth
+# auth and init username/password
 sudo -u $USER bash << EOF
 git clone $AUTH_REPO auth
 EOF
 pushd auth
 sudo -u $USER bash << EOF
 ./setup.sh
+
+set -x
+ln -s {`pwd`, $DEST_DIR/$DIR_BASENAME}/usrperm.cfg
+set +x
 EOF
 popd
 
