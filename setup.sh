@@ -56,6 +56,10 @@ pushd auth
 sudo -u $USER bash << EOF
 ./setup.sh
 
+# use template config file.
+cp usrperm.template.cfg usrperm.cfg
+
+# symbol link config file to master folder.
 set -x
 ln -sf {`pwd`,$DEST_DIR/$DIR_BASENAME}/usrperm.cfg
 set +x
