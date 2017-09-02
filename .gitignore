@@ -3,3 +3,4 @@ login.log
 node_modules/
 *.lock
 jobs/logs
+usrperm.cfg
