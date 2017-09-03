@@ -55,6 +55,8 @@ var path = require('path');
 var app = express();
 
 app.use(express.static('./web'));
+app.use('/jobd', express.static('./web/jobd'));
+app.use('/jobd/vendor', express.static('./web/vendor'));
 app.use(bodyParser.json());
 
 const port = 3002;
@@ -81,19 +83,19 @@ app.get('/', function (req, res) {
 	jobdhdlr.handle_deps(req, res, jobs.depGraph);
 
 }).get('/jobd/graph', function (req, res) {
-	res.sendFile(path.resolve('./web/graph.html'));
+	res.sendFile(path.resolve('./web/jobd/graph.html'));
 
 }).get('/jobd/reload', expAuth.middleware, function (req, res) {
 	jobs = jobdhdlr.handle_reload(res, jobsldr, jobsdir, jobs);
 
 }).get('/jobd/query', expAuth.middleware, function (req, res) {
-	res.sendFile(path.resolve('./web/query.html'));
+	res.sendFile(path.resolve('./web/jobd/query.html'));
 
 }).post('/jobd/stdin', expAuth.middleware, function (req, res) {
 	jobdhdlr.handle_stdin(req, res);
 
 }).get('/jobd/hist', function (req, res) {
-	res.sendFile(path.resolve('./web/hist.html'));
+	res.sendFile(path.resolve('./web/jobd/hist.html'));
 
 }).get('/jobd/history', function (req, res) {
 	jobdhdlr.handle_hist(res);
