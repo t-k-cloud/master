@@ -15,19 +15,31 @@ $(document).ready(function () {
 		dataType: "json" /* expecting data type */
 	}).done(function (retjson) {
 		var graphDef = 'graph LR \n';
-		var deps = retjson['deps'] || {};
-		for (var node in deps) {
-			var depArr = deps[node];
-			for (var i in depArr) {
-				graphDef += node + ' -.-> ' + depArr[i] + "\n";
-			}
-			if (depArr.length == 0) {
+		var depgraph = retjson['graph'] || {};
+		for (var node in depgraph) {
+			var depArr = depgraph[node]['dep'];
+			var refJob = depgraph[node]['ref'];
+			if (depArr.length == 0 && refJob == undefined) {
 				graphDef += node + "\n";
+			} else {
+				for (var i in depArr) {
+					graphDef += node + ' -.-> ' + depArr[i] + "\n";
+				}
+				if (refJob != undefined) {
+					graphDef += node + ' --> ' + refJob + "\n";
+				}
 			}
 		}
 
+		console.log(graphDef);
+
 		mermaidAPI.render('mermsvg', graphDef, function(svg){
 			$("#mermaid").html(svg);
+			setTimeout(function () {
+				var svgs = document.getElementsByTagName("svg");
+				var svg = svgs[0];
+				svg.setAttribute("height", 1600);
+			}, 100);
 		});
 	});
 });
