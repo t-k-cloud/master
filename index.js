@@ -70,7 +70,7 @@ var expAuth = require('../auth/express-auth.js');
 
 expAuth.init(app, {
 	keyName: 'tk-auth',
-	loginRoute: '/login'
+	loginRoute: 'login'
 });
 
 /*
@@ -115,10 +115,10 @@ app.get('/', function (req, res) {
 }).post('/jobd/run', expAuth.middleware, function (req, res) {
 	jobdhdlr.handle_query(req, res, user, jobsdir, jobs);
 
-}).get('/login', function (req, res) {
+}).get(/\/login$/, function (req, res) {
 	res.sendFile(path.resolve('./web/login.html'));
 
-}).post('/login_auth', function (req, res) {
+}).post(/\/login_auth$/, function (req, res) {
 	expAuth.handleLoginReq(req, res);
 
 });
