@@ -12,5 +12,7 @@ ssh $SSHTO 'bash -s' -- < $curdir/gitrepo-mirror.sh \
 
 ssh $SSHTO 'bash -s' << EOF
 	cd ~/wsproxy;
+	set -x
 	nodejs ./wsproxy-srv.js > ./wsproxy-srv.log <&- 2>&1 &
+	set +x
 EOF
