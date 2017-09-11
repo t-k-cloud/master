@@ -47,13 +47,13 @@ date > $LOCKFILE
 ###
 set -x
 # to show transmission rate, add `--progress' argument.
-rsync -zauv --checksum --contimeout=$TIMEOUT --timeout=$TIMEOUT \
+rsync -zauv --contimeout=$TIMEOUT --timeout=$TIMEOUT \
 	--exclude='.git/' --delete \
 	"rsync://[${CLIENT_IPV6}%${NET_INT_FACE}]":$PORT/sync \
 	$MASTER_TREE_PATH/sync
 
 # to show transmission rate, add `--progress' argument.
-rsync -zauv --checksum --contimeout=$TIMEOUT --timeout=$TIMEOUT \
+rsync -zauv --contimeout=$TIMEOUT --timeout=$TIMEOUT \
 	--exclude='.git/' \
 	"rsync://[${CLIENT_IPV6}%${NET_INT_FACE}]":$PORT/incr \
 	$MASTER_TREE_PATH/incr
