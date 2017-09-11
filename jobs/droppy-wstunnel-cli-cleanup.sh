@@ -13,4 +13,6 @@ do
 	kill ${pid}
 done
 
+rm -f *.pid
+
 exit 0;
