@@ -46,13 +46,22 @@ date > $LOCKFILE
 # actually run rsync
 ###
 set -x
-# to show transmission rate, add `--progress' argument.
+
+# in case empty Desktop will accidentally delete all remote
+# files, check the $PLEASE_SYNC_FLAG_FILE before mirroring.
+rsync --contimeout=$TIMEOUT --timeout=$TIMEOUT \
+	"rsync://[${CLIENT_IPV6}%${NET_INT_FACE}]":$PORT/sync \
+	| grep $PLEASE_SYNC_FLAG_FILE
+
+# mirror sync directory if $PLEASE_SYNC_FLAG_FILE exists
+if [ $? -eq 0 ]; then
 rsync -zauv --contimeout=$TIMEOUT --timeout=$TIMEOUT \
 	--exclude='.git/' --delete \
 	"rsync://[${CLIENT_IPV6}%${NET_INT_FACE}]":$PORT/sync \
 	$MASTER_TREE_PATH/sync
+fi;
 
-# to show transmission rate, add `--progress' argument.
+# backup incr directory
 rsync -zauv --contimeout=$TIMEOUT --timeout=$TIMEOUT \
 	--exclude='.git/' \
 	"rsync://[${CLIENT_IPV6}%${NET_INT_FACE}]":$PORT/incr \
