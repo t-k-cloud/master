@@ -46,10 +46,15 @@ $(document).ready(function () {
 		});
 	}
 
-	$("#refresh-log").click(function() { pullLog(); });
+	$("#log-area").click(function() { pullLog(); });
 	$("#retjson").text(JSON.stringify({}));
 });
 </script>
+<style>
+#log-area:hover {
+	cursor:pointer;
+}
+</style>
 </head>
 <body>
 <h3>Query</h3>
@@ -70,8 +75,10 @@ $(document).ready(function () {
 <span id="retjson" style="color:gray"></span>
 
 <h3>Log</h3>
+<div id="log-area">
 <pre id="log" style="background:black;color:gray;">
 </pre>
-<button id="refresh-log">refresh</button>
+</div>
+
 </body>
 </html>
