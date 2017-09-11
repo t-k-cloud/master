@@ -29,7 +29,7 @@ $(document).ready(function () {
 			}
 
 			if (timer != undefined) {
-				status_ += ' [timer] ';
+				status_ += ' [timer: ';
 				var anchor = function (ref) {
 					return '<a target="_blank" href="' + ref + '">';
 				};
@@ -40,6 +40,7 @@ $(document).ready(function () {
 				status_ += switchAref('on');
 				status_ += '/'
 				status_ += switchAref('off');
+				status_ += ']';
 			}
 
 			$('#' + tagID).html(status_ +
