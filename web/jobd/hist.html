@@ -14,7 +14,7 @@ $(document).ready(function () {
 			dataType: "json" /* expecting data type */
 		}).done(function (res) {
 			var job = res['job'] || {};
-			var timerSwitch = res['cronRunning'];
+			var timer = job['timer'];
 			var last_retcode = job['last_retcode'];
 			var timestamp0 = job['invoke_time'] || 0;
 			var timestamp1 = job['finish_time'] || 0;
@@ -28,7 +28,7 @@ $(document).ready(function () {
 				status_ = '&#9746;';
 			}
 
-			if (timerSwitch != undefined) {
+			if (timer != undefined) {
 				status_ += ' [timer] ';
 				var anchor = function (ref) {
 					return '<a target="_blank" href="' + ref + '">';
