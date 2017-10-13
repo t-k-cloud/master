@@ -9,8 +9,8 @@ $curdir/gitrepo-mirror.sh \
 cd ~/wsproxy
 echo "start new instances, connecting: $REMOTE_IP"
 for i in `seq 1 ${WSPROXY_INSTANCES}`; do
-	echo "instance $i ..."
-	node ./wsproxy-cli.js $REMOTE_IP > wsproxy-cli-${i}.log <&- 2>&1 &
+	echo "fork keep-alive instance $i ..."
+	./wsproxy-cli-keepalive.sh $REMOTE_IP &
 	pid=$!
-	echo $pid > wsproxy-cli-${i}.pid
+	echo $pid > keepalive-${i}.pid
 done
