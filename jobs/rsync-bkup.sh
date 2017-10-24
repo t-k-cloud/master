@@ -44,8 +44,7 @@ fi;
 ###
 set -x
 
-rsync -zauv --contimeout=$TIMEOUT --timeout=$TIMEOUT \
-	--exclude='.git/' --delete $SRC_DIR $DEST_DIR
+rsync -zauv --exclude='.git/' --delete $SRC_DIR $DEST_DIR
 
 # remove .lock file when finish
 rm -f $LOCKFILE
