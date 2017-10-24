@@ -12,6 +12,7 @@ TIMEOUT=$RSYNC_TIMEOUT
 
 # check .lock file
 if [ -e $LOCKFILE ]; then
+	echo "lock file exists, abort."
 	exit 0;
 fi;
 
