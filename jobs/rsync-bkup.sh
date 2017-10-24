@@ -21,6 +21,7 @@ while [ -e $LOCKFILE ]; do
 done;
 
 date > $LOCKFILE
+echo "Lockfile $LOCKFILE obtained."
 
 # check destination directory
 if [ ! -e $DEST_DIR ]; then
