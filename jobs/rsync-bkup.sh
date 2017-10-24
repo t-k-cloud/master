@@ -2,7 +2,9 @@
 curdir=$(cd $(dirname $0) && pwd)
 source $curdir/env.cfg
 
-DEST_DIR=$1
+SRC_DIR=$1
+DEST_DIR=$2
+
 LOCKFILE=$RSYNC_LOCKFILE
 TIMEOUT=$RSYNC_TIMEOUT
 
@@ -23,6 +25,13 @@ done;
 date > $LOCKFILE
 echo "Lockfile $LOCKFILE obtained."
 
+# check source directory
+if [ ! -e $SRC_DIR ]; then
+	echo "Source does not exists: $SRC_DIR. Abort."
+	rm -f $LOCKFILE
+	exit 0;
+fi;
+
 # check destination directory
 if [ ! -e $DEST_DIR ]; then
 	echo "Destination does not exists: $DEST_DIR. Abort."
@@ -35,9 +44,8 @@ fi;
 ###
 set -x
 
-echo rsync -zauv --contimeout=$TIMEOUT --timeout=$TIMEOUT \
-	--exclude='.git/' --delete $MASTER_TREE_PATH \
-	$DEST_DIR
+rsync -zauv --contimeout=$TIMEOUT --timeout=$TIMEOUT \
+	--exclude='.git/' --delete $SRC_DIR $DEST_DIR
 
 # remove .lock file when finish
 rm -f $LOCKFILE
