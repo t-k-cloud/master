@@ -56,11 +56,7 @@ $useragent = $_SERVER['HTTP_USER_AGENT'];
 $matches = array(); // match results
 $proxy_port = 0;
 $proxy_uri = '';
-if (preg_match('/^\/r\/([0-9]+)(.*)/', $req_uri, $matches)) {
-	// matching: http://hostname/r/54321/some/path/somefile
-	$proxy_port = $matches[1];
-	$proxy_uri = $matches[2];
-} else if (preg_match('/^\/r\/(.*)/', $req_uri, $matches)) {
+if (preg_match('/^\/(.*)/', $req_uri, $matches)) {
 	// matching: http://hostname/r/some/path/somefile
 	$proxy_port = $DEFAULT_PROXY_PORT;
 	$proxy_uri = "/$matches[1]";
