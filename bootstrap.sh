@@ -33,6 +33,6 @@ fi
 # run jobd with root permission (jobd depends on master)
 tput setaf 6 # colorful
 echo "Now: cd $MASTER_TREE_PATH/$PROJ_PATH/jobd"
-echo "Now start jobd: sudo node ./jobd.js $USER ../master/jobs --bootstrap"
-echo "After http://localhost/auth/login is accessble, "
-echo "quit and restart without bootstrap option."
+echo "Start jobd: sudo node ./jobd.js $USER ../master/jobs --bootstrap"
+echo -n "After http://localhost/auth/login is accessble, "
+echo "quit (ctrl-C) and restart jobd again without --bootstrap option."
