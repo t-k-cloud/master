@@ -57,7 +57,6 @@ $matches = array(); // match results
 $proxy_port = 0;
 $proxy_uri = '';
 if (preg_match('/^\/(.*)/', $req_uri, $matches)) {
-	// matching: http://hostname/r/some/path/somefile
 	$proxy_port = $DEFAULT_PROXY_PORT;
 	$proxy_uri = "/$matches[1]";
 } else {
