@@ -30,4 +30,4 @@ mv $curdir $MASTER_TREE_PATH/$PROJ_PATH/master
 
 # run jobd with root permission (jobd depends on master)
 echo "Now: cd $MASTER_TREE_PATH/$PROJ_PATH/jobd"
-echo "Now start jobd: node ./jobd.js $USER ../master/jobs"
+echo "Now start jobd: sudo node ./jobd.js $USER ../master/jobs"
