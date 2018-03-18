@@ -25,8 +25,10 @@ popd
 
 # bootstrap master (move this directory to project path)
 curdir=$(basename `pwd`)
-cd ..
-mv $curdir $MASTER_TREE_PATH/$PROJ_PATH/master
+if [ ! -e $MASTER_TREE_PATH/$PROJ_PATH/master ]; then
+	cd ..
+	mv $curdir $MASTER_TREE_PATH/$PROJ_PATH/master
+fi
 
 # run jobd with root permission (jobd depends on master)
 echo "Now: cd $MASTER_TREE_PATH/$PROJ_PATH/jobd"
