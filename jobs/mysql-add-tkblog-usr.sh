@@ -1,4 +1,5 @@
 #!/bin/bash
+curdir=$(cd $(dirname $0) && pwd)
 source $curdir/env.cfg
 
 mysql -u root --password=$MYSQL_PASSWD << EOF
