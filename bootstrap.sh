@@ -32,6 +32,6 @@ fi
 tput setaf 6 # colorful
 echo "Now: cd $MASTER_TREE_PATH/$PROJ_PATH/jobd"
 echo "Start jobd: sudo node ./jobd.js $USER ../master/jobs --bootstrap"
-echo "Run job nginx:nginx-setup to setup nginx virtual host."
+echo "Run job nginx:setup to setup nginx virtual host."
 echo -n "After http://localhost/auth/login is accessble, "
 echo "Start authd.js and restart jobd without --bootstrap option."
