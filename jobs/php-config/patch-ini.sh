@@ -19,7 +19,7 @@ sed -i 's/display_errors = Off/display_errors = On/' $F
 ###
 # enable necessary modules
 ###
-sed -i 's/;extension=mysql\.so/extension=mysql\.so/' $F
-sed -i 's/;extension=mysqli\.so/extension=mysqli\.so/' $F
-sed -i 's/;extension=gd\.so/extension=gd\.so/' $F
-sed -i 's/;extension=pdo_mysql\.so/extension=pdo_mysql\.so/' $F
+sed -i '/;extension=mysql$/c extension=mysql' $F
+sed -i '/;extension=mysqli/c extension=mysqli' $F
+sed -i '/;extension=gd/c extension=gd' $F
+sed -i '/;extension=pdo_mysql/c extension=pdo_mysql' $F
