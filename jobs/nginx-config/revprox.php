@@ -78,11 +78,11 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLINFO_HEADER_OUT, true);
 curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
+curl_setopt($ch, CURLOPT_TIMEOUT, 60 * 60); /* 60 minutes timeout */
 
 // if request method is POST (most of the time it is GET)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	curl_setopt($ch, CURLOPT_POST, 1); /* set request as POST */
-	curl_setopt($ch, CURLOPT_TIMEOUT, 60); /* 1 minute timeout */
 
 	/* copy origin request POST fields */
 	$raw_post = file_get_contents("php://input");
