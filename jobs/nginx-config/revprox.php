@@ -65,7 +65,9 @@ if (preg_match('/^\/(.*)/', $req_uri, $matches)) {
 }
 
 /* curl instance setup */
+$mh = curl_multi_init();
 $ch = curl_init();
+
 $proxy = "http://localhost:${proxy_port}";
 $url = "http://127.0.0.1$proxy_uri";
 $ret_header_proxy = true;
@@ -79,6 +81,7 @@ curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLINFO_HEADER_OUT, true);
 curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
 curl_setopt($ch, CURLOPT_TIMEOUT, 60 * 60); /* 60 minutes timeout */
+//curl_setopt($ch, CURLOPT_TCP_NODELAY, true);
 
 // if request method is POST (most of the time it is GET)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -101,33 +104,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 curl_setopt($ch, CURLOPT_HEADER, $ret_header_proxy);
-$ret = curl_exec($ch); // do the actual curl
 
-if (curl_errno($ch)) {
-	/* show error string on curl error */
-	$errstr = curl_error($ch);
-	exit("ERROR: PHP-curl `$errstr'.");
-}
-
-if ($ret_header_proxy) {
-	/* return response header */
-	list($ret_header, $ret_body) = explode("\r\n\r\n", $ret, 2);
-	$ret_header_arr = explode("\r\n", $ret_header);
-	foreach ($ret_header_arr as $hf) {
-		header($hf);
+if (!$ret_header_proxy) {
+	$ret = curl_exec($ch);
+	if (curl_errno($ch)) {
+		/* show error string on curl error */
+		$errstr = curl_error($ch);
+		exit("revprox ERROR: PHP-curl `$errstr'.");
 	}
-
-	/* return response body */
-	echo $ret_body;
-} else {
 	echo $ret;
+	curl_close($ch); // close curl instance
+	exit();
 }
 
-//ob_start();
-//echo "===== \n";
-////var_dump($ret_header);
-//var_dump(getallheaders());
-//file_put_contents('revprox.log', ob_get_clean(), FILE_APPEND | LOCK_EX);
+/* start to execute using non-blocking curl_multi_*() */
+curl_multi_add_handle($mh, $ch);
+$running = null;
+$offset  = 0;
+do {
+	curl_multi_exec($mh, $running);
+	$content = curl_multi_getcontent($ch);
 
+	if ($offset == 0 && strpos($content, "\r\n\r\n")) {
+		list($ret_header, $ret_body) = explode("\r\n\r\n", $content, 2);
+		$ret_header_arr = explode("\r\n", $ret_header);
+		foreach ($ret_header_arr as $hf) { header($hf); }
+		echo $ret_body;
+		$offset = strlen($content);
+	} else if ($offset > 0) {
+		echo substr($content, $offset);
+		$offset = strlen($content);
+		usleep(54321); //sleep
+		// file_put_contents('/tmp/revprox.log', "$offset\n" , FILE_APPEND | LOCK_EX);
+	}
+} while ($running > 0);
+
+curl_multi_remove_handle($mh, $ch);
+curl_multi_close($mh);
 curl_close($ch); // close curl instance
 ?>
