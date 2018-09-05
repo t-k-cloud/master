@@ -105,12 +105,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 curl_setopt($ch, CURLOPT_HEADER, $ret_header_proxy);
 
+// if (true) { /* uncomment this line to debug (curl_multi_exec won't report any error) */
 if (!$ret_header_proxy) {
 	$ret = curl_exec($ch);
 	if (curl_errno($ch)) {
 		/* show error string on curl error */
 		$errstr = curl_error($ch);
-		exit("revprox ERROR: PHP-curl `$errstr'.");
+		echo("proxy=`$proxy', url=`$url'"."<br/>");
+		exit("revprox PHP-curl error: `$errstr'.");
 	}
 	echo $ret;
 	curl_close($ch); // close curl instance
@@ -122,7 +124,12 @@ curl_multi_add_handle($mh, $ch);
 $running = null;
 $offset  = 0;
 do {
-	curl_multi_exec($mh, $running);
+	$status = curl_multi_exec($mh, $running);
+	if($status != CURLM_OK) {
+		$errstr = curl_multi_strerror($status);
+		echo("proxy=`$proxy', url=`$url'"."<br/>");
+		exit("curl_multi_exec error: `$errstr'.");
+	}
 	$content = curl_multi_getcontent($ch);
 
 	if ($offset == 0 && strpos($content, "\r\n\r\n")) {
