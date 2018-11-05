@@ -1,4 +1,4 @@
-About
+Setup
 =====
 `master` is the first repo to download when setting up
 tkcloud master node.
