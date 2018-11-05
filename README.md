@@ -29,3 +29,7 @@ Troubleshoot
 	* Check `http://[cloud_IP]/tkblog/search.php?q=test` to test tkblog search engine.
 	* Check `http://[cloud_IP]/hippo/` to test hippo service.
 	* Check `http://[cloud_IP]/static/` to test static file service.
+
+Reminder
+========
+* Don't forget to keep `t-k-cloud.github.io/index.html` IP updated, so that tkblog blog publish will work.
