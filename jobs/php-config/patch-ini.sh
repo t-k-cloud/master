@@ -1,4 +1,4 @@
-FPM_CMD=$1 # php-fpm7.0 or php-fpm
+FPM_CMD=$(ls ${PATH//:/ } 2> /dev/null | grep php-fpm | head -1) # php-fpm7.x or php-fpm
 F=$($FPM_CMD -i | grep  '^Loaded Config' | awk -F'>' '{gsub(/ /, "", $0); print $2}')
 
 echo "php-fpm command: $FPM_CMD"
