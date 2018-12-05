@@ -29,6 +29,7 @@ Troubleshoot
 	* Check `http://[cloud_IP]/tkblog/search.php?q=test` to test tkblog search engine.
 	* Check `http://[cloud_IP]/hippo/` to test hippo service.
 	* Check `http://[cloud_IP]/static/` to test static file service.
+	* Check `http://[cloud_IP]/feeder/` to test feed/news service.
 
 Reminder
 ========
