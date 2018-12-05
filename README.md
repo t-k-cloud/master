@@ -33,4 +33,6 @@ Troubleshoot
 
 Reminder
 ========
-* Don't forget to keep `t-k-cloud.github.io/index.html` IP updated, so that tkblog blog publish will work.
+* Everytime cloud VPS IP is changed, do not forget to:
+	* keep `t-k-cloud.github.io/index.html` IP updated, so that tkblog blog publish will work.
+	* Change tkblog [feed address](https://feedburner.google.com/fb/a/dashboard?id=7497e64cf04fpi2vdrqndsi87o)
