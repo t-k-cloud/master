@@ -39,9 +39,9 @@ On cloud VPS IP change
 Master tree restore
 ============================
 * Restore `incr/` files
-* Run `proj:restore-all` job
+* Run `proj:restore-all` job to restore `proj/` repositories
 * Restore `sync/` files (before create `.please_sync` on client node)
-* Restore `proj/` repository data folders
+* Restore data folders of `proj/` repositories
 	* `proj/hippo/hippo`
 	* `proj/tkblog/blog`
 	* `proj/tkcloud/feeds`
