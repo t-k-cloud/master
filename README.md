@@ -41,7 +41,7 @@ Master tree restore
 * Restore `incr/` files
 * Run `proj:restore-all` job to restore `proj/` repositories
 * Restore `sync/` files (before create `.please_sync` on client node)
-* Restore data folders of `proj/` repositories
+* Restore some data folders of `proj/` repositories
 	* `proj/hippo/hippo`
 	* `proj/tkblog/blog`
 	* `proj/tkcloud/feeds`
