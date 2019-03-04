@@ -31,8 +31,17 @@ Troubleshoot
 	* Check `http://[cloud_IP]/static/` to test static file service.
 	* Check `http://[cloud_IP]/feeder/` to test feed/news service.
 
-Reminder
-========
-* Everytime cloud VPS IP is changed, do not forget to:
-	* keep `t-k-cloud.github.io/index.html` IP updated, so that tkblog blog publish will work.
-	* Change tkblog [feed address](https://feedburner.google.com/fb/a/dashboard?id=7497e64cf04fpi2vdrqndsi87o)
+On cloud VPS IP change
+======================
+* keep `t-k-cloud.github.io/index.html` IP updated, so that tkblog blog publish will work.
+* Change tkblog [feed address](https://feedburner.google.com/fb/a/dashboard?id=7497e64cf04fpi2vdrqndsi87o)
+	
+Master tree restore
+============================
+* Restore `incr/` files
+* Run `proj:restore-all` job to restore `proj/` repositories
+* Restore `sync/` files (before create `.please_sync` on client node)
+* Restore some data folders of `proj/` repositories
+	* `proj/hippo/hippo`
+	* `proj/tkblog/blog`
+	* `proj/tkcloud/feeds`
