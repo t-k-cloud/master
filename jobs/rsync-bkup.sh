@@ -45,6 +45,7 @@ fi;
 set -x
 
 rsync -zauv --exclude='.git/' --delete $SRC_DIR $DEST_DIR
+sync
 
 # remove .lock file when finish
 rm -f $LOCKFILE
