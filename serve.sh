@@ -53,7 +53,7 @@ for i in {0..6}; do
 		5)
 		tmux send-keys -t tkcloud "cd ../doudou"
 		tmux send-keys -t tkcloud Enter
-		tmux send-keys -t tkcloud "python doudou.py --indexd --searchd"
+		tmux send-keys -t tkcloud "python doudou.py --searchd --indexd"
 		tmux send-keys -t tkcloud Enter
 		;;
 
